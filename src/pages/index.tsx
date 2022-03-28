@@ -32,7 +32,7 @@ const Index: FC = () => {
             src="/images/wood-small.jpg"
           />
         </div>
-        <div className="w-full h-full grid grid-cols-4 gap-4 p-4 z-50 backdrop-blur-[2px]">
+        <div className="w-full h-full grid grid-cols-4 gap-4 p-4 z-50">
           {Array.from({ length: 16 }).map(() => (
             <Card key={nanoid()}>{undefined}</Card>
           ))}
