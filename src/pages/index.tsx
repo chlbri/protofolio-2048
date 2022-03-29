@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 type CardProps = {
-  children?: number;
+  children?: string;
   color?: string;
   backgroundColor?: string;
   opacity?: number;
