@@ -1,13 +1,13 @@
 import type { AppProps } from 'next/app';
 import { FC } from 'react';
-import MachineProvider from '../Providers/machine';
+import Provider from '../Providers/machine/Provider';
 import '../styles/global.css';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <MachineProvider>
+    <Provider>
       <Component {...pageProps} />;
-    </MachineProvider>
+    </Provider>
   );
 };
 

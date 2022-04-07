@@ -7,9 +7,9 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
-      // screens: {
-      //   '3xl': '2000px',
-      // },
+      screens: {
+        '2xl': '1600px',
+      },
     },
   },
   variants: {
