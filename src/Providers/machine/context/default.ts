@@ -6,8 +6,8 @@ export const context: TContext = {
   game: {
     moves: 0,
     score: 0,
-    board: [1024],
-    boardSide: boardSideSchema.parse(5),
+    board: [],
+    boardSide: boardSideSchema.parse(4),
     status: 'idle',
   },
   errors: [],
