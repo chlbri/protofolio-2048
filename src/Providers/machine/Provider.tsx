@@ -1,14 +1,14 @@
 import { useInterpret } from '@xstate/react';
-import { machine, S_Machine } from 'kernel/lib/machine/machine';
 import { createContext, FC } from 'react';
 import { InterpreterFrom } from 'xstate';
+import { machine } from './machine';
 
 export const MachineContext = createContext(
   {} as InterpreterFrom<typeof machine>,
 );
 
-const MachineProvider: FC = ({ children }) => {
-  const value = useInterpret(machine as S_Machine);
+const Provider: FC = ({ children }) => {
+  const value = useInterpret(machine);
   return (
     <MachineContext.Provider {...{ value }}>
       {children}
@@ -16,4 +16,4 @@ const MachineProvider: FC = ({ children }) => {
   );
 };
 
-export default MachineProvider;
+export default Provider;
