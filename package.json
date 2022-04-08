@@ -1,6 +1,6 @@
 {
-  "name": "gitpod-nexts",
-  "version": "0.0.11",
+  "name": "protofolio-2048",
+  "version": "0.0.2",
   "author": "chlbri <chlbri.blac@gmail.com>",
   "private": true,
   "scripts": {
@@ -12,9 +12,12 @@
     "upgrade": "pnpm upgrade --latest",
     "clean_cache": "pnpm cache clean",
     "prepare": "husky install",
-    "add_kernel": "pnpm remove kernel && pnpm add https://github.com/chlbri/protofolio-2048-kernel.git"
+    "add_engine": "pnpm add https://github.com/chlbri/2048-game-machine.git",
+    "rm": "rm -rf node_modules"
   },
   "dependencies": {
+    "@bemedev/fstate": "^0.0.2",
+    "@bemedev/types": "^0.0.3",
     "@tippyjs/react": "^4.2.6",
     "@xstate/immer": "^0.3.1",
     "@xstate/react": "^2.0.1",
@@ -23,7 +26,7 @@
     "game_engine": "github:chlbri/2048-game-machine",
     "immer": "^9.0.12",
     "jsonwebtoken": "^8.5.1",
-    "kernel": "github:chlbri/protofolio-2048-kernel",
+    "mobile-detect": "^1.4.5",
     "nanoid": "^3.3.2",
     "next": "^12.1.1",
     "react": "^17.0.2",

@@ -10,5 +10,6 @@ export const context: TContext = {
     boardSide: boardSideSchema.parse(4),
     status: 'idle',
   },
+  isMobile: false,
   errors: [],
 };

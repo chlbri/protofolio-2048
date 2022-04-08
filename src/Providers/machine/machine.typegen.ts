@@ -9,12 +9,14 @@ export interface Typegen0 {
     moveRight: 'GAME.MOVE.RIGHT';
     moveUp: 'GAME.MOVE.UP';
     updateGame: 'GAME.UPDATE';
+    inc: 'GAME.UPDATE';
     startGame: 'GAME.START';
     startEngine: 'GAME.START';
+    reStartGame: 'GAME.RESTART';
     stopGame: 'GAME.STOP';
     changeBoardSide: 'GAME.CHANGE_BOARDSIDE';
     sendBoardSide: 'GAME.CHANGE_BOARDSIDE';
-    inc: 'xstate.init';
+    assignIsMobile: 'done.invoke.main.preparing:invocation[0]';
   };
   internalEvents: {
     'error.platform.checkEnvironmentVariables': {
@@ -61,7 +63,7 @@ export interface Typegen0 {
   eventsCausingGuards: {
     hasEnvErrors: 'error.platform.checkEnvironmentVariables';
     gameIsNotStarted: 'GAME.START';
-    gameIsStarted: 'GAME.STOP';
+    gameIsStarted: 'GAME.RESTART' | 'GAME.STOP';
   };
   eventsCausingDelays: {};
   matchesStates:
@@ -71,6 +73,9 @@ export interface Typegen0 {
     | 'starting'
     | 'started'
     | 'started.engine'
-    | { started?: 'engine' };
+    | 'started.engine.busy'
+    | 'started.engine.nobusy'
+    | 'started.engine.gameover'
+    | { started?: 'engine' | { engine?: 'busy' | 'nobusy' | 'gameover' } };
   tags: never;
 }

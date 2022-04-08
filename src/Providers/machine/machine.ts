@@ -1,11 +1,12 @@
 import { assign } from '@xstate/immer';
 import { engine } from 'game_engine';
+import MobileDetect from 'mobile-detect';
 import { createMachine, send } from 'xstate';
 import { TContext } from './context';
 import { context } from './context/default';
 import { TEvent } from './events';
 
-export const mainMachine = createMachine(
+export const machine = createMachine(
   {
     context,
     tsTypes: {} as import('./machine.typegen').Typegen0,
@@ -55,23 +56,48 @@ export const mainMachine = createMachine(
         },
       },
       starting: {
+        entry: 'assignIsMobile',
         after: {
           500: 'started',
         },
+        exit: ['inc'],
       },
       started: {
         exit: 'inc',
-        type: 'parallel',
+        initial: 'engine',
         states: {
           engine: {
+            id: 'engine',
             entry: ['startEngine'],
             invoke: {
               id: 'engine',
               src: 'engine',
-              data: {
-                boardSide: (ctx: TContext) => ctx.game.boardSide,
+              data: (ctx: TContext) => {
+                return {
+                  board: ctx.game.board,
+                  boardSide: ctx.game.boardSide,
+                  iterator: 0,
+                  moves: 0,
+                  score: 0,
+                  _tempBoards: {
+                    down: [],
+                    up: [],
+                    left: [],
+                    right: [],
+                    next: [],
+                  },
+                };
               },
             },
+            initial: 'busy',
+            states: {
+              busy: {
+                after: { '500': 'nobusy' },
+              },
+              nobusy: {},
+              gameover: {},
+            },
+
             on: {
               'GAME.MOVE.DOWN': {
                 actions: 'moveDown',
@@ -86,18 +112,26 @@ export const mainMachine = createMachine(
                 actions: 'moveUp',
               },
               'GAME.UPDATE': {
-                actions: 'updateGame',
+                actions: ['updateGame', 'inc'],
               },
               'GAME.START': {
                 cond: 'gameIsNotStarted',
                 actions: ['startGame', 'startEngine'],
+                target: '.busy',
+              },
+              'GAME.RESTART': {
+                cond: 'gameIsStarted',
+                actions: ['reStartGame'],
+                target: '.busy',
               },
               'GAME.STOP': {
                 cond: 'gameIsStarted',
                 actions: 'stopGame',
+                target: '.gameover',
               },
               'GAME.CHANGE_BOARDSIDE': {
                 actions: ['changeBoardSide', 'sendBoardSide'],
+                target: '.busy',
               },
             },
           },
@@ -114,14 +148,15 @@ export const mainMachine = createMachine(
         ctx.game.boardSide = boardSide;
       }),
       sendBoardSide: send(
-        (_, { boardSide }) => ({
+        ({ game: { boardSide: b2 } }, { boardSide }) => ({
           type: 'CHANGE_BOARDSIDE',
-          boardSide,
+          boardSide: boardSide ?? b2,
         }),
         {
           to: 'engine',
         },
       ),
+      reStartGame: send('RESTART', { to: 'engine' }),
       startGame: assign(ctx => {
         ctx.game.status = 'started';
       }),
@@ -142,7 +177,7 @@ export const mainMachine = createMachine(
       }),
       updateGame: assign((ctx, ev) => {
         ctx.game.board = ev.board;
-        ctx.game.moves = ev.moves;
+        ctx.game.moves = ev.moves ?? 0;
         ctx.game.statistics = ev.statistics;
         ctx.game.score = ev.score;
       }),
@@ -151,6 +186,10 @@ export const mainMachine = createMachine(
       }),
       addNotEnvVariablesError: assign(ctx => {
         ctx.errors.push('envError');
+      }),
+      assignIsMobile: assign(ctx => {
+        const md = new MobileDetect(window.navigator.userAgent);
+        ctx.isMobile = !!md.mobile();
       }),
     },
     guards: {
@@ -162,6 +201,7 @@ export const mainMachine = createMachine(
       engine,
       checkEnvironmentVariables: async () => {},
       prepare: async () => {},
+      //TODO: Connexion
     },
   },
 );

@@ -15,6 +15,7 @@ export type TEvent =
       type:
         | 'START'
         | 'GAME.START'
+        | 'GAME.RESTART'
         | 'GAME.STOP'
         | 'GAME.MOVE.UP'
         | 'GAME.MOVE.DOWN'

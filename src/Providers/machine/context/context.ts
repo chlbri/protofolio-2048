@@ -1,5 +1,13 @@
 import { BoardSide, contextSchema as context, inferF } from 'game_engine';
-import { array, literal, number, object, string, union } from 'zod';
+import {
+  array,
+  boolean,
+  literal,
+  number,
+  object,
+  string,
+  union,
+} from 'zod';
 
 export const contextSchema = (boardSide: BoardSide) =>
   object({
@@ -13,6 +21,7 @@ export const contextSchema = (boardSide: BoardSide) =>
           literal('stopped'),
         ]),
       }),
+    isMobile: boolean(),
     iterator: number(),
   });
 // context(boardSide)

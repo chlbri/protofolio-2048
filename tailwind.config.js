@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -6,9 +8,14 @@ module.exports = {
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    screens: {
+      xs: '400px',
+      ...defaultTheme.screens,
+      '2xl': '1600px',
+    },
     extend: {
-      screens: {
-        '2xl': '1600px',
+      fontFamily: {
+        longFamily: ['PT Sans Narrow'],
       },
     },
   },
