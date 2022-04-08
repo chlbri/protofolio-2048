@@ -1,17 +1,9 @@
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { Arrow } from './Arrow';
 
-type Props = {
-  children: ReactNode;
-};
-
-type ContainerProps = {
-  children: ReactNode;
-};
-
-const Container: FC<ContainerProps> = ({ children }) => {
+const Container: FC = ({ children }) => {
   const isMobile = useIsMobile();
   return isMobile ? (
     <div className="z-50 flex">
@@ -60,7 +52,7 @@ const Container: FC<ContainerProps> = ({ children }) => {
   );
 };
 
-const GameBackGround: FC<Props> = ({ children }) => {
+const GameBackGround: FC = ({ children }) => {
   return (
     <Container>
       <div className="absolute inset-0 ">
