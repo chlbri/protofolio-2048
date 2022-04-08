@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 type CardProps = {
   color?: string;
@@ -14,12 +15,14 @@ export const Card: FC<CardProps> = ({
   backgroundColor = 'black',
   columns = 4,
 }) => {
+  const isMobile = useIsMobile();
+  const denom = columns + (isMobile ? 1 : 0);
   return (
     <div
       className="black rounded sm:rounded-md lg:rounded-xl xl:rounded-2xl shadow-md md:shadow-2xl text-2xl xs:text-3xl sm:text-4xl lg:text-5xl   2xl:text-6xl aspect-square flex items-center justify-center font-bold"
       style={{ color, opacity, backgroundColor }}
     >
-      <div style={{ transform: `scale(${4 / columns})` }}>{children}</div>
+      <div style={{ transform: `scale(${4 / denom})` }}>{children}</div>
     </div>
   );
 };

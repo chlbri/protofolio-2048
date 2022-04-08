@@ -1,6 +1,17 @@
 import { boardSideSchema } from 'game_engine';
 import { FC, useEffect } from 'react';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { useSend, useState } from '../Providers/machine';
+
+function debounce<F extends () => unknown>(cb: F, delay = 300) {
+  let timeout: ReturnType<typeof setTimeout>;
+  return () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      cb();
+    }, delay);
+  };
+}
 
 export const BoardSideSlider: FC = () => {
   const send = useSend();
@@ -18,6 +29,8 @@ export const BoardSideSlider: FC = () => {
     state.matches('started.engine.gameover'),
   );
 
+  const isMobile = useIsMobile();
+
   return (
     <div className="flex-1 mb-4 lg:mb-0 items-center flex justify-center">
       <div
@@ -25,7 +38,7 @@ export const BoardSideSlider: FC = () => {
         // style={{}}
       >
         <div className="flex flex-row-reverse lg:flex-col justify-between text-2xl w-full lg:w-auto lg:h-full lg:-ml-14">
-          <div>°36</div>
+          {!isMobile && <div>°36</div>}
           <div>°25</div>
           <div>°16</div>
         </div>
@@ -36,15 +49,18 @@ export const BoardSideSlider: FC = () => {
           id=""
           className="lg:-rotate-90 bg-slate-800 w-40 scale-[2] fill-slate-500 stroke-slate-700 accent-yellow-800"
           min={4}
-          max={6}
+          max={isMobile ? 5 : 6}
           defaultValue={defaultBoarderSide}
           onChange={e => {
-            send({
-              type: 'GAME.CHANGE_BOARDSIDE',
-              boardSide: boardSideSchema.parse(
-                Number.parseInt(e.target.value),
-              ),
+            const _send = debounce(() => {
+              send({
+                type: 'GAME.CHANGE_BOARDSIDE',
+                boardSide: boardSideSchema.parse(
+                  Number.parseInt(e.target.value),
+                ),
+              });
             });
+            _send();
           }}
         />
       </div>
