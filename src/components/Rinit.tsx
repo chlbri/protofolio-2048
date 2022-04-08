@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useSend, useState } from '../Providers/machine';
 
-type Props = {};
-
-export const Rinit: FC<Props> = () => {
+export const Rinit: FC = () => {
   const isGameOver = useState(state => {
     return state.matches('started.engine.gameover');
   });

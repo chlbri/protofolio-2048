@@ -7,9 +7,7 @@ export const MachineContext = createContext(
   {} as InterpreterFrom<typeof machine>,
 );
 
-type Props = {};
-
-const Provider: FC<Props> = ({ children }) => {
+const Provider: FC = ({ children }) => {
   const value = useInterpret(machine);
   return (
     <MachineContext.Provider {...{ value }}>
