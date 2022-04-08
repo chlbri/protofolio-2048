@@ -34,7 +34,7 @@ export const BoardSideSlider: FC = () => {
           type="range"
           name=""
           id=""
-          className="lg:-rotate-90 bg-slate-800 w-40 scale-[2] text-blue fill-slate-500 stroke-slate-700 accent-yellow-800"
+          className="lg:-rotate-90 bg-slate-800 w-40 scale-[2] fill-slate-500 stroke-slate-700 accent-yellow-800"
           min={4}
           max={6}
           defaultValue={defaultBoarderSide}

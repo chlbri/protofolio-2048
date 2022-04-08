@@ -16,7 +16,7 @@ const Container: FC = ({ children }) => {
           />
         </Arrow>
       </div>
-      <div className="flex-grow space-y-4 flex h-full flex-col justify-between text-blue items-center">
+      <div className="flex-grow space-y-4 flex h-full flex-col justify-between items-center">
         <Arrow move="GAME.MOVE.UP">
           <path
             strokeLinecap="round"
