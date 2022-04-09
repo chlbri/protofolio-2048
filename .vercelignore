@@ -3,7 +3,7 @@
 
 #For Libraries
 
-#
+
 ### Node ###
 # Logs
 logs
@@ -118,6 +118,12 @@ yarn.lock
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build
+out
+dist
+lib
+
 # dotenv environment variables file
 .env
 .env.test
@@ -137,12 +143,40 @@ yarn.lock
 #vscode
 .vscode
 
+#github
+.github
+
+#husky
+.husky
+
 #Apple
 .DS_Store
 
+# Settings
+.eslintignore
+.eslintrc.yml
+.gitpod.yml
+.prettierignore
+.prettierrc.yml
+jest.config.js
+tsconfig.json
+pnpm-lock.yaml
+tests
+build.npm.js
+gitpod.temp.yml
+
 #my
+build.npm.ts
 build.npm.js
 .gitpod.yml
 .prettierrc.yml
 .prettierrc
 .prettierrc.json
+.npmrc
+
+#Tests
+**/*.test.ts
+**/*.test.js
+**/*.test.jsx
+**/*.test.tsx
+**/setupTest.ts

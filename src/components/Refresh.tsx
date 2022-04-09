@@ -17,7 +17,9 @@ export const Refresh: FC<Props> = ({ size = 1.5 }) => {
   );
   return (
     <button
-      className="p-3 border-lg border-[6px] border-yellow-800 max-w-min rounded-full cursor-pointer active:scale-95 shadow-lg active:shadow-inner hover:border-slate-700 disabled:border-gray-600 group disabled:opacity-40"
+      className="p-3 border-lg border-[6px] border-yellow-800 max-w-min rounded-full 
+      cursor-pointer active:scale-95 shadow-lg active:shadow-inner disabled:active:scale-100 
+      disabled:shadow-none hover:border-slate-700 disabled:border-gray-600 group disabled:opacity-40"
       onClick={() => {
         send('GAME.RESTART');
       }}

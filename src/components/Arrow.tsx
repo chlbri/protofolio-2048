@@ -29,7 +29,12 @@ export const Arrow: FC<ArrowProps> = ({
 }) => {
   const send = useSend();
   return (
-    <div className="active:scale-90 active:shadow-inner transition-transform duration-100 ease-in-out shadow-lg rounded-full">
+    <div
+      className="active:scale-90 active:shadow-inner transition-transform duration-100 ease-in-out shadow-lg rounded-full p-1"
+      onClick={() => {
+        send(move);
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -37,9 +42,6 @@ export const Arrow: FC<ArrowProps> = ({
         stroke="currentColor"
         strokeWidth={strokeWidth}
         style={{ width: `${size}rem`, height: `${size}rem` }}
-        onClick={() => {
-          send(move);
-        }}
       >
         {children}
       </svg>
