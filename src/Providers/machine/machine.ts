@@ -94,23 +94,35 @@ export const machine = createMachine(
               busy: {
                 after: { '500': 'nobusy' },
               },
-              nobusy: {},
+              nobusy: {
+                on: {
+                  'GAME.MOVE.DOWN': {
+                    actions: 'moveDown',
+                  },
+                  'GAME.MOVE.LEFT': {
+                    actions: 'moveLeft',
+                  },
+                  'GAME.MOVE.RIGHT': {
+                    actions: 'moveRight',
+                  },
+                  'GAME.MOVE.UP': {
+                    actions: 'moveUp',
+                  },
+                  'GAME.CHANGE_BOARDSIDE': {
+                    actions: ['changeBoardSide', 'sendBoardSide'],
+                    target: 'busy',
+                  },
+                  'GAME.RESTART': {
+                    cond: 'gameIsStarted',
+                    actions: ['reStartGame'],
+                    target: 'busy',
+                  },
+                },
+              },
               gameover: {},
             },
 
             on: {
-              'GAME.MOVE.DOWN': {
-                actions: 'moveDown',
-              },
-              'GAME.MOVE.LEFT': {
-                actions: 'moveLeft',
-              },
-              'GAME.MOVE.RIGHT': {
-                actions: 'moveRight',
-              },
-              'GAME.MOVE.UP': {
-                actions: 'moveUp',
-              },
               'GAME.UPDATE': {
                 actions: ['updateGame', 'inc'],
               },
@@ -119,19 +131,10 @@ export const machine = createMachine(
                 actions: ['startGame', 'startEngine'],
                 target: '.busy',
               },
-              'GAME.RESTART': {
-                cond: 'gameIsStarted',
-                actions: ['reStartGame'],
-                target: '.busy',
-              },
               'GAME.STOP': {
                 cond: 'gameIsStarted',
                 actions: 'stopGame',
                 target: '.gameover',
-              },
-              'GAME.CHANGE_BOARDSIDE': {
-                actions: ['changeBoardSide', 'sendBoardSide'],
-                target: '.busy',
               },
             },
           },

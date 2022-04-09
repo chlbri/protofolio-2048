@@ -4,18 +4,18 @@ export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
     addNotEnvVariablesError: 'error.platform.checkEnvironmentVariables';
-    moveDown: 'GAME.MOVE.DOWN';
-    moveLeft: 'GAME.MOVE.LEFT';
-    moveRight: 'GAME.MOVE.RIGHT';
-    moveUp: 'GAME.MOVE.UP';
     updateGame: 'GAME.UPDATE';
     inc: 'GAME.UPDATE';
     startGame: 'GAME.START';
     startEngine: 'GAME.START';
-    reStartGame: 'GAME.RESTART';
     stopGame: 'GAME.STOP';
+    moveDown: 'GAME.MOVE.DOWN';
+    moveLeft: 'GAME.MOVE.LEFT';
+    moveRight: 'GAME.MOVE.RIGHT';
+    moveUp: 'GAME.MOVE.UP';
     changeBoardSide: 'GAME.CHANGE_BOARDSIDE';
     sendBoardSide: 'GAME.CHANGE_BOARDSIDE';
+    reStartGame: 'GAME.RESTART';
     assignIsMobile: 'done.invoke.main.preparing:invocation[0]';
   };
   internalEvents: {
@@ -63,7 +63,7 @@ export interface Typegen0 {
   eventsCausingGuards: {
     hasEnvErrors: 'error.platform.checkEnvironmentVariables';
     gameIsNotStarted: 'GAME.START';
-    gameIsStarted: 'GAME.RESTART' | 'GAME.STOP';
+    gameIsStarted: 'GAME.STOP' | 'GAME.RESTART';
   };
   eventsCausingDelays: {};
   matchesStates:
